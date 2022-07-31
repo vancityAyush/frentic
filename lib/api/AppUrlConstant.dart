@@ -1,8 +1,6 @@
-
-class AppUrlConstant{
-  
+class AppUrlConstant {
   //////////////////// Base Url//////////////////////////////////
-  
+
   static String baseUrl = "http://cashera.frantic.in/RestApi/";
   // static String baseUrl = "http://alb.frantic.in/RestApi/";
 
@@ -20,6 +18,8 @@ class AppUrlConstant{
 
   static String profileApi = "fetch_profile";
 
+  static String campaignApi = "my_reports_as_per_campaign";
+
   static String fetchBrandsApi = "fetch_brands";
 
   static String fetchWalletApi = "fetch_wallet";
@@ -27,6 +27,4 @@ class AppUrlConstant{
   static String fetchSliderApi = "fetch_slider";
 
   static String editProfileApi = "edit_profile";
-
-
 }

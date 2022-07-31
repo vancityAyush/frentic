@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Screeens/Login/login.dart';
 import 'Signup.dart';
-class Welcome extends StatelessWidget {
 
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -117,8 +116,9 @@ class Welcome extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 64),
                           child: TextButton(
                             onPressed: () {},
-                            child: Text("Terms & Conditions.",
-                                style: TextStyle(fontSize: 12),
+                            child: Text(
+                              "Terms & Conditions.",
+                              style: TextStyle(fontSize: 12),
                             ),
                           ),
                         ),

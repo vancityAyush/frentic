@@ -1,28 +1,28 @@
 class ResponseFetchBrands {
-  int errorCode;
-  String responseString;
-  List<Data> data;
-  String data1;
-  String data2;
-  String data3;
-  String data4;
+  int? errorCode;
+  String? responseString;
+  List<Data>? data;
+  String? data1;
+  String? data2;
+  String? data3;
+  String? data4;
 
   ResponseFetchBrands(
       {this.errorCode,
-        this.responseString,
-        this.data,
-        this.data1,
-        this.data2,
-        this.data3,
-        this.data4});
+      this.responseString,
+      this.data,
+      this.data1,
+      this.data2,
+      this.data3,
+      this.data4});
 
   ResponseFetchBrands.fromJson(Map<String, dynamic> json) {
     errorCode = json['error_code'];
     responseString = json['response_string'];
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = [];
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
     data1 = json['data1'];
@@ -36,7 +36,7 @@ class ResponseFetchBrands {
     data['error_code'] = this.errorCode;
     data['response_string'] = this.responseString;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['data1'] = this.data1;
     data['data2'] = this.data2;
@@ -47,76 +47,82 @@ class ResponseFetchBrands {
 }
 
 class Data {
-  Brand brand;
-  List<BrandExtension> brandExtension;
-  List<BrandRemarks> brandRemarks;
-  BrandRating brandRating;
+  Brand? brand;
+  List<BrandExtension>? brandExtension;
+  List<BrandRemarks>? brandRemarks;
+  BrandRating? brandRating;
 
-  Data({this.brand, this.brandExtension, this.brandRemarks, this.brandRating});
+  Data({
+    required this.brand,
+    required this.brandExtension,
+    required this.brandRemarks,
+    required this.brandRating,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
-    brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
+    brand = (json['brand'] != null ? new Brand.fromJson(json['brand']) : null)!;
     if (json['brand_extension'] != null) {
-      brandExtension = new List<BrandExtension>();
+      brandExtension = <BrandExtension>[];
       json['brand_extension'].forEach((v) {
-        brandExtension.add(new BrandExtension.fromJson(v));
+        brandExtension!.add(new BrandExtension.fromJson(v));
       });
     }
     if (json['brand_remarks'] != null) {
-      brandRemarks = new List<BrandRemarks>();
+      brandRemarks = <BrandRemarks>[];
       json['brand_remarks'].forEach((v) {
-        brandRemarks.add(new BrandRemarks.fromJson(v));
+        brandRemarks!.add(new BrandRemarks.fromJson(v));
       });
     }
-    brandRating = json['brand_rating'] != null
+    brandRating = (json['brand_rating'] != null
         ? new BrandRating.fromJson(json['brand_rating'])
-        : null;
+        : null)!;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.brand != null) {
-      data['brand'] = this.brand.toJson();
+      data['brand'] = this.brand!.toJson();
     }
     if (this.brandExtension != null) {
       data['brand_extension'] =
-          this.brandExtension.map((v) => v.toJson()).toList();
+          this.brandExtension!.map((v) => v.toJson()).toList();
     }
     if (this.brandRemarks != null) {
-      data['brand_remarks'] = this.brandRemarks.map((v) => v.toJson()).toList();
+      data['brand_remarks'] =
+          this.brandRemarks!.map((v) => v.toJson()).toList();
     }
     if (this.brandRating != null) {
-      data['brand_rating'] = this.brandRating.toJson();
+      data['brand_rating'] = this.brandRating!.toJson();
     }
     return data;
   }
 }
 
 class Brand {
-  String id;
-  String name;
-  String brand;
-  String brandImage;
-  String description;
-  String reward;
-  String rewardType;
-  String donondate;
-  String createdAt;
-  String updatedAt;
-  String deletedAt;
+  String? id;
+  String? name;
+  String? brand;
+  String? brandImage;
+  String? description;
+  String? reward;
+  String? rewardType;
+  String? donondate;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
 
   Brand(
       {this.id,
-        this.name,
-        this.brand,
-        this.brandImage,
-        this.description,
-        this.reward,
-        this.rewardType,
-        this.donondate,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+      this.name,
+      this.brand,
+      this.brandImage,
+      this.description,
+      this.reward,
+      this.rewardType,
+      this.donondate,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   Brand.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -150,26 +156,26 @@ class Brand {
 }
 
 class BrandExtension {
-  String tasks;
-  String id;
-  String userId;
-  String brandId;
-  String taskId;
-  String isCompleted;
-  String createdAt;
-  String updatedAt;
-  String deletedAt;
+  String? tasks;
+  String? id;
+  String? userId;
+  String? brandId;
+  String? taskId;
+  String? isCompleted;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
 
   BrandExtension(
       {this.tasks,
-        this.id,
-        this.userId,
-        this.brandId,
-        this.taskId,
-        this.isCompleted,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+      this.id,
+      this.userId,
+      this.brandId,
+      this.taskId,
+      this.isCompleted,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   BrandExtension.fromJson(Map<String, dynamic> json) {
     tasks = json['tasks'];
@@ -199,28 +205,28 @@ class BrandExtension {
 }
 
 class BrandRemarks {
-  String id;
-  String userId;
-  String brandId;
-  String remarks;
-  String ratings;
-  String createdAt;
-  String updatedAt;
-  String deletedAt;
-  String name;
-  String phone;
+  String? id;
+  String? userId;
+  String? brandId;
+  String? remarks;
+  String? ratings;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  String? name;
+  String? phone;
 
   BrandRemarks(
       {this.id,
-        this.userId,
-        this.brandId,
-        this.remarks,
-        this.ratings,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.name,
-        this.phone});
+      this.userId,
+      this.brandId,
+      this.remarks,
+      this.ratings,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.name,
+      this.phone});
 
   BrandRemarks.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -252,7 +258,7 @@ class BrandRemarks {
 }
 
 class BrandRating {
-  String avg;
+  String? avg;
 
   BrandRating({this.avg});
 

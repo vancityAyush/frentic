@@ -1,28 +1,28 @@
 class ResponseWallet {
-  int errorCode;
-  String responseString;
-  List<Data> data;
-  String data1;
-  String data2;
-  String data3;
-  String data4;
+  int? errorCode;
+  String? responseString;
+  List<Data>? data;
+  String? data1;
+  String? data2;
+  String? data3;
+  String? data4;
 
   ResponseWallet(
       {this.errorCode,
-        this.responseString,
-        this.data,
-        this.data1,
-        this.data2,
-        this.data3,
-        this.data4});
+      this.responseString,
+      this.data,
+      this.data1,
+      this.data2,
+      this.data3,
+      this.data4});
 
   ResponseWallet.fromJson(Map<String, dynamic> json) {
     errorCode = json['error_code'];
     responseString = json['response_string'];
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = <Data>[];
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
     data1 = json['data1'];
@@ -36,7 +36,7 @@ class ResponseWallet {
     data['error_code'] = this.errorCode;
     data['response_string'] = this.responseString;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['data1'] = this.data1;
     data['data2'] = this.data2;
@@ -47,24 +47,24 @@ class ResponseWallet {
 }
 
 class Data {
-  String id;
-  String userId;
-  String transType;
-  String amount;
-  String remarks;
-  String createdAt;
-  String updatedAt;
-  String deletedAt;
+  String? id;
+  String? userId;
+  String? transType;
+  String? amount;
+  String? remarks;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
 
   Data(
       {this.id,
-        this.userId,
-        this.transType,
-        this.amount,
-        this.remarks,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+      this.userId,
+      this.transType,
+      this.amount,
+      this.remarks,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

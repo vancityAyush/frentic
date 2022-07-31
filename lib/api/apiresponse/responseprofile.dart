@@ -1,20 +1,20 @@
 class ResponseProfile {
-  int errorCode;
-  String responseString;
-  Data data;
-  String data1;
-  String data2;
-  String data3;
-  String data4;
+  int? errorCode;
+  String? responseString;
+  Data? data;
+  String? data1;
+  String? data2;
+  String? data3;
+  String? data4;
 
   ResponseProfile(
       {this.errorCode,
-        this.responseString,
-        this.data,
-        this.data1,
-        this.data2,
-        this.data3,
-        this.data4});
+      this.responseString,
+      this.data,
+      this.data1,
+      this.data2,
+      this.data3,
+      this.data4});
 
   ResponseProfile.fromJson(Map<String, dynamic> json) {
     errorCode = json['error_code'];
@@ -31,7 +31,7 @@ class ResponseProfile {
     data['error_code'] = this.errorCode;
     data['response_string'] = this.responseString;
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data!.toJson();
     }
     data['data1'] = this.data1;
     data['data2'] = this.data2;
@@ -43,58 +43,60 @@ class ResponseProfile {
 // publisher_key
 
 class Data {
-  String id;
-  String name;
-  String email;
-  String phone;
-  String appKey;
-  String dob;
-  String age;
-  String gender;
-  String image;
-  String fcmToken;
-  String aadhaarNumber;
-  String aadhaarFront;
-  String aadhaarBack;
-  String panNumber;
-  String panImage;
-  String fbLogin;
-  String gmailLogin;
-  String password;
-  String isVerified;
-  String isKyc;
-  String referalCode;
-  String imeino;
-  String createdAt;
-  String updatedAt;
-  String deletedAt;
+  String? id;
+  String? name;
+  String? email;
+  String? phone;
+  String? appKey;
+  String? dob;
+  String? age;
+  String? gender;
+  String? image;
+  String? fcmToken;
+  String? aadhaarNumber;
+  String? aadhaarFront;
+  String? aadhaarBack;
+  String? panNumber;
+  String? panImage;
+  String? fbLogin;
+  String? gmailLogin;
+  String? password;
+  String? isVerified;
+  String? isKyc;
+  String? referalCode;
+  String? imeino;
+  String? publisherKey;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
 
   Data(
       {this.id,
-        this.name,
-        this.email,
-        this.phone,
-        this.appKey,
-        this.dob,
-        this.age,
-        this.gender,
-        this.image,
-        this.fcmToken,
-        this.aadhaarNumber,
-        this.aadhaarFront,
-        this.aadhaarBack,
-        this.panNumber,
-        this.panImage,
-        this.fbLogin,
-        this.gmailLogin,
-        this.password,
-        this.isVerified,
-        this.isKyc,
-        this.referalCode,
-        this.imeino,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt});
+      this.name,
+      this.email,
+      this.phone,
+      this.appKey,
+      this.dob,
+      this.age,
+      this.gender,
+      this.image,
+      this.fcmToken,
+      this.aadhaarNumber,
+      this.aadhaarFront,
+      this.aadhaarBack,
+      this.panNumber,
+      this.panImage,
+      this.fbLogin,
+      this.gmailLogin,
+      this.password,
+      this.isVerified,
+      this.isKyc,
+      this.referalCode,
+      this.imeino,
+      this.publisherKey,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -119,6 +121,7 @@ class Data {
     isKyc = json['is_kyc'];
     referalCode = json['referal_code'];
     imeino = json['imeino'];
+    publisherKey = json['publisher_key'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
@@ -148,6 +151,7 @@ class Data {
     data['is_kyc'] = this.isKyc;
     data['referal_code'] = this.referalCode;
     data['imeino'] = this.imeino;
+    data['publisher_key'] = this.publisherKey;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;

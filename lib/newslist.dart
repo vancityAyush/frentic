@@ -1,174 +1,139 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frentic/Home_page.dart';
-import 'news.dart';
+import 'package:frentic/api/news_api.dart';
+import 'package:frentic/models/News.dart';
+import 'package:frentic/news_page.dart';
+
 class News_list extends StatefulWidget {
   @override
   _News_listState createState() => _News_listState();
 }
 
-class _News_listState extends State<News_list> {
-  String userkey;
+class _News_listState extends State<News_list>
+    with SingleTickerProviderStateMixin {
+  List<String> newsTypes = [
+    "Finance",
+    "Politics",
+    "Lifestyle",
+    "Technology",
+    "Entertainment",
+    "Sports",
+    "Travels",
+  ];
+  late String userkey;
+  NewsApiManager newsApiManager = NewsApiManager();
+  late TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: newsTypes.length,
+      vsync: this,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: size.height / 40,
-                    ),
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        width: size.width / 0.5,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                              child: TextButton.icon(
-                                  icon: Hero(
-                                    tag: 1,
-                                      child: Icon(Icons.arrow_back_ios)),
-                                  label: Text(
-                                    "News",
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
-                                  }),
-                            ),
-                          ],
-                        )),
-                ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: 7,
-                  itemBuilder:
-                      (BuildContext context, int index) =>
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Info()));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:20),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage('assets/Face.png'),
-                                          radius: 34,
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 7,bottom: 8,),
-                                            child: Container(
-                                                width: size.width/1.30,
-                                                child: Text("Covid:Over 81.7 crore vaccine doses administered in India so far.",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),)),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 6,right: 9),
-                                            child: Row(
-                                              children: [
-                                                Text('21 sep 2021'),
-                                                SizedBox(
-                                                  width: size.width/2.6,
-                                                ),
-                                                Text('2:30 pm')
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20,top: 5),
-                                    child: SizedBox(
-                                      width: size.width/1.1,
-                                      height: 1,
-                                      child: Container(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            "News",
+            style: TextStyle(
+              color: Colors.green,
+            ),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black54,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Home();
+                  },
                 ),
-
-                  ],
+              );
+            },
+          ),
+          bottom: TabBar(
+            indicatorColor: Colors.black54,
+            isScrollable: true,
+            labelColor: Colors.black,
+            controller: _tabController,
+            tabs: [
+              for (String newsType in newsTypes)
+                Tab(
+                  text: newsType,
                 ),
-              ),
             ],
           ),
+        ),
+        backgroundColor: Colors.white,
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            buildNewsList(newsApiManager.getFinanceNews),
+            buildNewsList(newsApiManager.getPoliticsNews),
+            buildNewsList(newsApiManager.getLifeStyleNews),
+            buildNewsList(newsApiManager.getTechNews),
+            buildNewsList(newsApiManager.getEntertainmentNews),
+            buildNewsList(newsApiManager.getSportsNews),
+            buildNewsList(newsApiManager.getTravelNews),
+          ],
         ),
       ),
     );
   }
-}
-/*Column(
-    children: [
-      Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/Face.png'),
-              radius: 34,
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 7,bottom: 8,),
-                child: Container(
-                    width: size.width/1.30,
-                    child: Text("Covid:Over 81.7 crore vaccine doses administered in India so far.",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),)),
+
+  FutureBuilder<List<News>> buildNewsList(dynamic getData) {
+    return FutureBuilder<List<News>>(
+      future: getData(),
+      builder: (context, snapshots) {
+        if (snapshots.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        List<News> news = snapshots.data!;
+        return ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return Info(news[index]);
+                    },
+                  ),
+                );
+              },
+              contentPadding: EdgeInsets.all(12),
+              leading: Image.network(
+                news[index].img,
+                fit: BoxFit.cover,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 6,right: 9),
-                child: Row(
-                  children: [
-                    Text('21 sep 2021'),
-                    SizedBox(
-                      width: size.width/2.6,
-                    ),
-                    Text('2:30 pm')
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 20,top: 5),
-        child: SizedBox(
-          width: size.width/1.1,
-          height: 1,
-          child: Container(
-            color: Colors.black,
-          ),
-        ),
-      )
-    ],
-  )*/
+              title: Text(
+                news[index].title,
+              ),
+            );
+          },
+          itemCount: news.length,
+          separatorBuilder: (context, index) {
+            return Divider(
+              thickness: 1,
+              color: Colors.black,
+            );
+          },
+        );
+      },
+    );
+  }
+}

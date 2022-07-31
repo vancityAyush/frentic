@@ -1,27 +1,30 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:frentic/api/AppConstant.dart';
 import 'package:frentic/api/apiManager.dart';
 import 'package:frentic/api/sharedprefrence.dart';
+import 'package:http/http.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
-import '../../Home_page.dart';
-import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
-import 'package:http/http.dart';
 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
+
 class _LoginState extends State<Login> {
   TextEditingController _name = TextEditingController();
-  bool isLoad = false,isLoadOtp = false;
+  bool isLoad = false, isLoadOtp = false;
 
-  bool msg;
-  bool phn;
-  String info;
-  String userkey;
-  String onetimepassword="Fill Correct E-mail and Phone number";
+  late bool msg;
+  late bool phn;
+  late String info;
+  late String userkey;
+  String onetimepassword = "Fill Correct E-mail and Phone number";
   String pin = "";
   final url = "http://cashera.frantic.in/RestApi/set_verify_otp";
   final url2 = "http://cashera.frantic.in/RestApi/verify_otp";
@@ -30,18 +33,19 @@ class _LoginState extends State<Login> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('boolValue', true);
   }
-  void getuserkey()async{
+
+  void getuserkey() async {
     final response1 = await post(Uri.parse(url2), body: {
       "username": _name.text.toString(),
-      "otp":pin.toString(),
+      "otp": pin.toString(),
     });
     print(response1.body);
     var jsonData1 = jsonDecode(response1.body);
     setState(() {
-      userkey= jsonData1['data'].toString();
+      userkey = jsonData1['data'].toString();
     });
-
   }
+
   void postData() async {
     final response = await post(Uri.parse(url), body: {
       "username": _name.text.toString(),
@@ -50,14 +54,14 @@ class _LoginState extends State<Login> {
     var jsonData = jsonDecode(response.body);
     print(jsonData);
     setState(() {
-      if(jsonData['data']==null){
-        onetimepassword="Invalid User";
-      }
-      else {
+      if (jsonData['data'] == null) {
+        onetimepassword = "Invalid User";
+      } else {
         onetimepassword = jsonData['data'].toString();
       }
     });
   }
+
   List<Widget> otp = [
     Container(),
   ];
@@ -72,6 +76,7 @@ class _LoginState extends State<Login> {
     focusNode.dispose();
     super.dispose();
   }
+
   void toggleSwitch(bool value) {
     if (isSwitched == false) {
       setState(() {
@@ -87,6 +92,7 @@ class _LoginState extends State<Login> {
       print('Remember OFF');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -172,7 +178,7 @@ class _LoginState extends State<Login> {
                             boxShadow: [
                               BoxShadow(
                                   blurRadius: 4,
-                                  color: Colors.green[800],
+                                  color: Colors.green[800]!,
                                   spreadRadius: 1)
                             ],
                           ),
@@ -191,28 +197,30 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              if(isLoad==true)
+              if (isLoad == true)
                 Align(
-                  alignment: Alignment.centerRight,
+                    alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 50.0,top: 10,bottom: 10),
+                      padding: const EdgeInsets.only(
+                          right: 50.0, top: 10, bottom: 10),
                       child: CircularProgressIndicator(),
                     ))
               else
-              Opacity(
-                opacity: open,
-                child: FlatButton(
-                  onPressed: () async {
-                    setState(() {
-                      isLoad = true;
-                    });
+                Opacity(
+                  opacity: open,
+                  child: FlatButton(
+                    onPressed: () async {
+                      setState(() {
+                        isLoad = true;
+                      });
 
-                    await Provider.of<ApiManager>(context,listen: false).loginApi(_name.text);
+                      await Provider.of<ApiManager>(context, listen: false)
+                          .loginApi(_name.text);
 
-                    setState(() {
-                      isLoad = false;
-                    });
-                    /*if (onetimepassword.isNotEmpty) {
+                      setState(() {
+                        isLoad = false;
+                      });
+                      /*if (onetimepassword.isNotEmpty) {
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -222,17 +230,17 @@ class _LoginState extends State<Login> {
                         },
                       );
                     }*/
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(left: size.width / 1.7, top: 8),
-                    child: Text(
-                      "Get Otp",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.w500),
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: size.width / 1.7, top: 8),
+                      child: Text(
+                        "Get Otp",
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ),
                 ),
-              ),
               Container(
                 child: Padding(
                     padding: const EdgeInsets.only(top: 0),
@@ -261,32 +269,17 @@ class _LoginState extends State<Login> {
                                                 left: 55,
                                                 right: 25,
                                               ),
-                                              child: PinCodeFields(
-                                                length: 5,
-                                                animationDuration:
-                                                    const Duration(
-                                                        milliseconds: 200),
-                                                animationCurve:
-                                                    Curves.easeInOut,
-                                                switchInAnimationCurve:
-                                                    Curves.easeIn,
-                                                switchOutAnimationCurve:
-                                                    Curves.easeOut,
-                                                animation:
-                                                    Animations.SlideInDown,
-                                                onComplete: (result) {
+                                              child: PinCodeTextField(
+                                                appContext: context,
+                                                onChanged: (String value) {
                                                   setState(() {
-                                                    pin = result.toString();
+                                                    pin = value.toString();
                                                   });
                                                 },
+                                                length: 5,
                                               ),
                                             ),
-                                          )
-                                      )
-                                  )
-                              )
-                          )
-                      ),
+                                          )))))),
                       SizedBox(height: 30, width: 40),
                       Container(
                         decoration: BoxDecoration(
@@ -295,7 +288,7 @@ class _LoginState extends State<Login> {
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 4,
-                                color: Colors.green[800],
+                                color: Colors.green[800]!,
                                 spreadRadius: 1)
                           ],
                         ),
@@ -334,26 +327,29 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 40,
               ),
-              if(isLoadOtp)
+              if (isLoadOtp)
                 CircularProgressIndicator()
               else
-              ElevatedButton(
-                onPressed: () async{
-                  var name = await SharedPrefManager.getPrefrenceString(AppConstant.NAME);
-                  var otp = await SharedPrefManager.getPrefrenceString(AppConstant.OTP);
+                ElevatedButton(
+                  onPressed: () async {
+                    var name = await SharedPrefManager.getPrefrenceString(
+                        AppConstant.NAME);
+                    var otp = await SharedPrefManager.getPrefrenceString(
+                        AppConstant.OTP);
 
-                  setState(() {
-                    isLoadOtp = true;
-                  });
+                    setState(() {
+                      isLoadOtp = true;
+                    });
 
-                  await Provider.of<ApiManager>(context,listen: false).verifyOtpApi(name,otp);
+                    await Provider.of<ApiManager>(context, listen: false)
+                        .verifyOtpApi(name, otp);
 
-                  setState(() {
-                    isLoadOtp = false;
-                  });
-                  // getuserkey();
+                    setState(() {
+                      isLoadOtp = false;
+                    });
+                    // getuserkey();
 
-                  /*if (pin == onetimepassword) {
+                    /*if (pin == onetimepassword) {
                     addBoolToSF();
                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                         Home()), (Route<dynamic> route) => false);
@@ -367,19 +363,19 @@ class _LoginState extends State<Login> {
                       },
                     );
                   }*/
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
-                  child: Text(
-                    'Next',
-                    style: TextStyle(color: Colors.white),
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.green[800],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50))),
                 ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.green[800],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50))),
-              ),
               TextButton(onPressed: () {}, child: Text("Forget Password?"))
             ],
           ),
@@ -388,6 +384,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
 
 //fetch_brands//

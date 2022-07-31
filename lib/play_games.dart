@@ -1,28 +1,35 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'game_apply.dart';
-import 'invite&earn.dart';
-import 'aboutUs.dart';
+
 import 'TermsandCondition.dart';
-import 'wallet.dart';
+import 'aboutUs.dart';
 import 'faq.dart';
-
-
+import 'invite&earn.dart';
+import 'wallet.dart';
 
 class PlayGames extends StatefulWidget {
   @override
   _PlayGamesState createState() => _PlayGamesState();
 }
+
 class _PlayGamesState extends State<PlayGames> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final size1 = MediaQuery.of(context).size.height.toDouble();
-    List<String> lst=['Quiz','Cricket','Bubble','Race','Fantesy','Slap Fast','Quiz'];
+    List<String> lst = [
+      'Quiz',
+      'Cricket',
+      'Bubble',
+      'Race',
+      'Fantesy',
+      'Slap Fast',
+      'Quiz'
+    ];
     return SafeArea(
-      child:
-      Scaffold(
+      child: Scaffold(
         key: _scaffoldKey,
         drawer: SizedBox(
           width: 250,
@@ -69,8 +76,8 @@ class _PlayGamesState extends State<PlayGames> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AboutUs()));
                   },
                   child: Container(
                     height: 50,
@@ -87,12 +94,11 @@ class _PlayGamesState extends State<PlayGames> {
                                 Image(
                                   width: 24,
                                   height: 30,
-                                  image:
-                                  AssetImage('assets/logo/manager.png'),
+                                  image: AssetImage('assets/logo/manager.png'),
                                 ),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                                      const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                   child: Text(
                                     "About Us",
                                     style: TextStyle(
@@ -101,8 +107,8 @@ class _PlayGamesState extends State<PlayGames> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      115, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(115, 0, 0, 0),
                                   child: Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.black,
@@ -138,12 +144,11 @@ class _PlayGamesState extends State<PlayGames> {
                                   Image(
                                     width: 24,
                                     height: 30,
-                                    image: AssetImage(
-                                        'assets/logo/salary.png'),
+                                    image: AssetImage('assets/logo/salary.png'),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8, 8, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                     child: Text(
                                       "Earn Money",
                                       style: TextStyle(
@@ -152,8 +157,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        94, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(94, 0, 0, 0),
                                     child: Icon(
                                       Icons.arrow_forward_ios,
                                       color: Colors.black,
@@ -171,7 +176,8 @@ class _PlayGamesState extends State<PlayGames> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Wallet()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Wallet()));
                   },
                   child: Container(
                     height: 50,
@@ -192,7 +198,7 @@ class _PlayGamesState extends State<PlayGames> {
                                 ),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                                      const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                   child: Text(
                                     "Wallet",
                                     style: TextStyle(
@@ -201,8 +207,8 @@ class _PlayGamesState extends State<PlayGames> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      134, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(134, 0, 0, 0),
                                   child: Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.black,
@@ -219,7 +225,8 @@ class _PlayGamesState extends State<PlayGames> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Invite()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Invite()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -242,8 +249,8 @@ class _PlayGamesState extends State<PlayGames> {
                                         'assets/logo/invitation.png'),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8, 8, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                     child: Text(
                                       "Invite & Earn",
                                       style: TextStyle(
@@ -252,8 +259,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        88, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(88, 0, 0, 0),
                                     child: Icon(
                                       Icons.arrow_forward_ios,
                                       color: Colors.black,
@@ -271,7 +278,10 @@ class _PlayGamesState extends State<PlayGames> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>TermsandConditions()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TermsandConditions()));
                   },
                   child: Container(
                     height: 50,
@@ -293,7 +303,7 @@ class _PlayGamesState extends State<PlayGames> {
                                 ),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                                      const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                   child: Text(
                                     "Terms & Conditions",
                                     style: TextStyle(
@@ -302,8 +312,8 @@ class _PlayGamesState extends State<PlayGames> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      38, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(38, 0, 0, 0),
                                   child: Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.black,
@@ -320,7 +330,8 @@ class _PlayGamesState extends State<PlayGames> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Faq()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Faq()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -339,12 +350,11 @@ class _PlayGamesState extends State<PlayGames> {
                                   Image(
                                     width: 24,
                                     height: 30,
-                                    image:
-                                    AssetImage('assets/logo/faq.png'),
+                                    image: AssetImage('assets/logo/faq.png'),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        8, 8, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                     child: Text(
                                       "FAQ",
                                       style: TextStyle(
@@ -353,8 +363,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        150, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(150, 0, 0, 0),
                                     child: Icon(
                                       Icons.arrow_forward_ios,
                                       color: Colors.black,
@@ -389,12 +399,11 @@ class _PlayGamesState extends State<PlayGames> {
                                 Image(
                                   width: 24,
                                   height: 30,
-                                  image:
-                                  AssetImage('assets/logo/review.png'),
+                                  image: AssetImage('assets/logo/review.png'),
                                 ),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                                      const EdgeInsets.fromLTRB(8, 8, 0, 0),
                                   child: Text(
                                     "Feedback",
                                     style: TextStyle(
@@ -403,8 +412,8 @@ class _PlayGamesState extends State<PlayGames> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      107, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(107, 0, 0, 0),
                                   child: Icon(
                                     Icons.arrow_forward_ios,
                                     color: Colors.black,
@@ -437,13 +446,13 @@ class _PlayGamesState extends State<PlayGames> {
                   ),
                 ),
                 Padding(
-                  padding:  EdgeInsets.fromLTRB(0, size.width/9, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, size.width / 9, 0, 0),
                   child: Container(
                     width: size.width / 1,
                     height: size.height / 30,
                     color: Colors.black12,
-                    child: Image(
-                        width: 120, image: AssetImage('assets/logo.JPG')),
+                    child:
+                        Image(width: 120, image: AssetImage('assets/logo.JPG')),
                   ),
                 )
               ],
@@ -456,7 +465,7 @@ class _PlayGamesState extends State<PlayGames> {
               padding: const EdgeInsets.fromLTRB(0, 29, 0, 0),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0,size1/5),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, size1 / 5),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -468,24 +477,25 @@ class _PlayGamesState extends State<PlayGames> {
                           margin: EdgeInsets.all(0.0),
                           child: Container(
                             width: size.width,
-                            height:size.height/6,
+                            height: size.height / 6,
                             color: Colors.black,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(3, size1/19, 0, 0),
+                              padding: EdgeInsets.fromLTRB(3, size1 / 19, 0, 0),
                               child: ListView.builder(
                                   physics: ClampingScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 6,
-                                  itemBuilder: (BuildContext context, int index) =>
+                                  itemBuilder: (BuildContext context,
+                                          int index) =>
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            6, 0, 0, 0),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               primary: Colors.black,
-                                              padding:
-                                                  EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 0, 0)),
                                           onPressed: () {},
                                           child: Column(
                                             children: [
@@ -497,11 +507,13 @@ class _PlayGamesState extends State<PlayGames> {
                                                 maxRadius: 30,
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.fromLTRB(
-                                                    0, 10, 0, 0),
-                                                child: Text(lst[index],
-                                                  style:
-                                                      TextStyle(color: Colors.white),
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 10, 0, 0),
+                                                child: Text(
+                                                  lst[index],
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               )
                                             ],
@@ -544,21 +556,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(0, 3,0 , 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Bubble shooter",
-                                              style: TextStyle(color: Colors.black,fontSize: 8,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -573,21 +590,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Cuby Zap",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -602,21 +624,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Bubble shoot",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -631,21 +658,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Slap Fast",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -676,21 +708,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                            const EdgeInsets.fromLTRB(0, 3,0 , 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Bubble shooter",
-                                              style: TextStyle(color: Colors.black,fontSize: 8,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -705,21 +742,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                            const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Cuby Zap",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -734,21 +776,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                            const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Bubble shoot",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -763,21 +810,26 @@ class _PlayGamesState extends State<PlayGames> {
                                         children: [
                                           Container(
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                               child: Image(
                                                 width: 110,
                                                 height: 70,
-                                                image: AssetImage('assets/4.JPG'),
+                                                image:
+                                                    AssetImage('assets/4.JPG'),
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                            const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 3, 0, 0),
                                             child: Text(
                                               "Slap Fast",
-                                              style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 7,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],
@@ -788,15 +840,14 @@ class _PlayGamesState extends State<PlayGames> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 16, 10,2),
+                        padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
                         child: SizedBox(
                             width: 400,
-                            child:
-                                Image(width: 100, image: AssetImage('assets/2.JPG'))),
+                            child: Image(
+                                width: 100, image: AssetImage('assets/2.JPG'))),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
@@ -830,7 +881,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     children: [
                                       Container(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image(
                                             width: 110,
                                             height: 70,
@@ -840,11 +892,14 @@ class _PlayGamesState extends State<PlayGames> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.fromLTRB(0, 3,0 , 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 3, 0, 0),
                                         child: Text(
                                           "Bubble shooter",
-                                          style: TextStyle(color: Colors.black,fontSize: 8,fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],
@@ -859,7 +914,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     children: [
                                       Container(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image(
                                             width: 110,
                                             height: 70,
@@ -869,11 +925,14 @@ class _PlayGamesState extends State<PlayGames> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 3, 0, 0),
                                         child: Text(
                                           "Cuby Zap",
-                                          style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 7,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],
@@ -888,7 +947,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     children: [
                                       Container(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image(
                                             width: 110,
                                             height: 70,
@@ -898,11 +958,14 @@ class _PlayGamesState extends State<PlayGames> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 3, 0, 0),
                                         child: Text(
                                           "Bubble shoot",
-                                          style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 7,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],
@@ -917,7 +980,8 @@ class _PlayGamesState extends State<PlayGames> {
                                     children: [
                                       Container(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image(
                                             width: 110,
                                             height: 70,
@@ -927,11 +991,14 @@ class _PlayGamesState extends State<PlayGames> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 3, 0, 0),
                                         child: Text(
                                           "Slap Fast",
-                                          style: TextStyle(color: Colors.black,fontSize: 7,fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 7,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],
@@ -971,8 +1038,7 @@ class _PlayGamesState extends State<PlayGames> {
                         width: 40,
                         height: 40,
                       ),
-                      onPressed: () =>
-                          _scaffoldKey.currentState.openDrawer(),
+                      onPressed: () => _scaffoldKey.currentState!.openDrawer(),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(4, 7, 0, 0),
@@ -988,8 +1054,7 @@ class _PlayGamesState extends State<PlayGames> {
                           ),
                           Text(
                             "Income/₹",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.black),
+                            style: TextStyle(fontSize: 12, color: Colors.black),
                           ),
                         ],
                       ),
@@ -1015,13 +1080,12 @@ class _PlayGamesState extends State<PlayGames> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(4, 11, 14, 0),
                           child: Material(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                             elevation: 8,
                             shadowColor: Colors.green,
                             color: Colors.green[800],
                             child: SizedBox(
-                              height: size.height/32,
+                              height: size.height / 32,
                               width: size.width / 8,
                             ),
                           ),
@@ -1040,8 +1104,7 @@ class _PlayGamesState extends State<PlayGames> {
                               ),
                               Image(
                                   height: 27,
-                                  image: AssetImage(
-                                      "assets/whatsapp_logo.png"))
+                                  image: AssetImage("assets/whatsapp_logo.png"))
                             ],
                           ),
                         ),
@@ -1054,9 +1117,6 @@ class _PlayGamesState extends State<PlayGames> {
           ],
         ),
       ),
-
     );
   }
 }
-
-

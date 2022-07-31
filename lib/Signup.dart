@@ -1,19 +1,23 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frentic/api/AppConstant.dart';
 import 'package:frentic/api/apiManager.dart';
 import 'package:frentic/api/sharedprefrence.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:geocoding/geocoding.dart';
+
 import 'Home_page.dart';
+
 class Signup extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
 }
+
 class _SignupState extends State<Signup> {
   TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -22,9 +26,9 @@ class _SignupState extends State<Signup> {
   TextEditingController _city = TextEditingController();
   bool isLoad = false;
   final _formKey = GlobalKey<FormState>();
-  bool msg;
-  bool phn= false;
-  bool nam;
+  late bool msg;
+  bool phn = false;
+  late bool nam;
   String city = "";
   String message = "";
   String currentlocationcity = "City";
@@ -33,8 +37,6 @@ class _SignupState extends State<Signup> {
   var dio = Dio();
 
   var rsDio;
-
-
 
   void setcity() {
     if (_city.text == "") {
@@ -50,6 +52,7 @@ class _SignupState extends State<Signup> {
       city = _city.text;
     }
   }
+
   void getcity() async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(28.628454, 77.376945);
@@ -66,40 +69,30 @@ class _SignupState extends State<Signup> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('boolValue', true);
   }
+
   void postData() async {
+    String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
 
-      String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
+    print("data posted ++++++++++++++++++++++++=======");
+    print(key);
+    rsDio = await dio.post(
+        'https://api.trackier.com/v2/publishers?apiKey=61eea1a4445e29fb98cefbc3b5461eea1a444613',
+        data: {
+          "name": _name.text,
+          "email": _email.text,
+          "password": _password.text,
+          "phone": _phone.text,
+          "tags": ["string"]
+        });
 
+    print("Response of 3rd party Api ::::: --->  " +
+        rsDio.data['publisher']['id'].toString());
 
-      print("data posted ++++++++++++++++++++++++=======");
-      print(key);
-      rsDio = await dio.post('https://api.trackier.com/v2/publishers?apiKey=61eea1a4445e29fb98cefbc3b5461eea1a444613', data: {
+    await SharedPrefManager.savePublisherId(
+        "publisherId", rsDio.data['publisher']['id'].toString());
 
-
-        "name": _name.text,
-        "email": _email.text,
-        "password": _password.text,
-        "phone": _phone.text,
-
-
-
-        "tags": [
-          "string"
-        ]
-      });
-
-
-      print("Response of 3rd party Api ::::: --->  "+rsDio.data['publisher']['id'].toString());
-
-
-
-      await SharedPrefManager.savePublisherId("publisherId", rsDio.data['publisher']['id'].toString());
-
-      await Provider.of<ApiManager>(context,listen: false).editProfileApi(rsDio.data['publisher']['id'].toString());
-
-
-
-
+    await Provider.of<ApiManager>(context, listen: false)
+        .editProfileApi(rsDio.data['publisher']['id'].toString());
 
     final response = await post(Uri.parse(url), body: {
       "name": _name.text,
@@ -156,6 +149,7 @@ class _SignupState extends State<Signup> {
       }
     }
   }
+
   /*Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -236,7 +230,9 @@ class _SignupState extends State<Signup> {
                             child: TextField(
                               controller: _name,
                               onChanged: (_name) {
-                                bool valid = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]').hasMatch(_name);
+                                bool valid =
+                                    RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]')
+                                        .hasMatch(_name);
                                 print(valid);
                                 setState(() {
                                   nam = valid;
@@ -302,20 +298,15 @@ class _SignupState extends State<Signup> {
                               controller: _phone,
                               keyboardType: TextInputType.number,
                               onChanged: (_phone) {
-
                                 setState(() {
                                   if (_phone.length == 10) {
                                     print("true");
 
                                     phn = true;
-
                                   } else {
-
                                     phn = false;
-
                                   }
                                 });
-
                               },
                               decoration: InputDecoration(
                                 // labelText: '  Date of Birth',
@@ -342,20 +333,15 @@ class _SignupState extends State<Signup> {
                               controller: _password,
                               keyboardType: TextInputType.number,
                               onChanged: (_phone) {
-
                                 setState(() {
                                   if (_phone.length > 5) {
                                     print("true");
 
                                     phn = true;
-
                                   } else {
-
                                     phn = false;
-
                                   }
                                 });
-
                               },
                               decoration: InputDecoration(
                                 // labelText: '  Date of Birth',
@@ -402,52 +388,51 @@ class _SignupState extends State<Signup> {
               SizedBox(
                 height: 30,
               ),
-
-              if(isLoad == true)
+              if (isLoad == true)
                 CircularProgressIndicator()
               else
                 ElevatedButton(
-                onPressed: () async {
+                  onPressed: () async {
+                    if (_name.text.isEmpty) {
+                      Fluttertoast.showToast(msg: "Enter name");
+                    } else if (_email.text.isEmpty) {
+                      Fluttertoast.showToast(msg: "Enter email");
+                    } else if (_phone.text.isEmpty) {
+                      Fluttertoast.showToast(msg: "Enter Phone Number");
+                    } else if (_phone.text.length != 10) {
+                      Fluttertoast.showToast(
+                          msg: "Number should have 10 digits");
+                    } else if (_city.text.isEmpty) {
+                      Fluttertoast.showToast(msg: "Enter city");
+                    } else if (_password.text.length < 5) {
+                      Fluttertoast.showToast(
+                          msg: "The Password should have atleast 5 characters");
+                    } else {
+                      setState(() {
+                        isLoad = true;
+                      });
+                      await Provider.of<ApiManager>(context, listen: false)
+                          .registerUserApi(_name.text, _phone.text, _email.text,
+                              _city.text, latitude, longitude);
+                      postData();
 
-
-                  if(_name.text.isEmpty){
-                    Fluttertoast.showToast(msg: "Enter name");
-                  }else if(_email.text.isEmpty){
-                    Fluttertoast.showToast(msg: "Enter email");
-                  }else if(_phone.text.isEmpty){
-                    Fluttertoast.showToast(msg: "Enter Phone Number");
-                  }else if(_phone.text.length!=10){
-                    Fluttertoast.showToast(msg: "Number should have 10 digits");
-                  }else if (_city.text.isEmpty){
-                    Fluttertoast.showToast(msg: "Enter city");
-                  }else if( _password.text.length < 5){
-                    Fluttertoast.showToast(msg: "The Password should have atleast 5 characters");
-                  }
-                  else{
-                    setState(() {
-                      isLoad = true;
-                    });
-                    await Provider.of<ApiManager>(context,listen: false).registerUserApi(_name.text, _phone.text, _email.text, _city.text, latitude, longitude);
-                    postData();
-
-
-                    setState(() {
-                      isLoad = false;
-                    });
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(124, 0, 124, 0),
-                  child: Text(
-                    'Next',
-                    style: TextStyle(color: Colors.white),
+                      setState(() {
+                        isLoad = false;
+                      });
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(124, 0, 124, 0),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.green[800],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50))),
-              )
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.green[800],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50))),
+                )
             ],
           ),
         ),
