@@ -11,9 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  Widget home = Home1();
-  Color? cir = Colors.green[800]; //Changing of home earn icon
-  Color cir2 = Color.fromRGBO(168, 168, 168, 1);
+  Widget home = News_list();
+  Color cir2 = Colors.green[800]!; //Changing of home earn icon
+  Color cir = Color.fromRGBO(168, 168, 168, 1);
   Color play = Color.fromRGBO(168, 168, 168, 1);
   Color pro = Color.fromRGBO(168, 168, 168, 1);
   AnimationController? controller;
@@ -133,7 +133,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  cir = Colors.green[800];
+                                  cir = Colors.green[800]!;
                                   home = Home1();
                                   cir2 = Color.fromRGBO(168, 168, 168, 1);
                                   play = Color.fromRGBO(168, 168, 168, 1);

@@ -44,6 +44,7 @@ class _GameApplyState extends State<GameApply> {
           AsyncSnapshot<List<CampaignResponse>> snapshot) {
         // AsyncSnapshot<Your object type>
         if (snapshot.hasData) {
+          final List<CampaignResponse> data = snapshot.data!;
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
@@ -58,156 +59,25 @@ class _GameApplyState extends State<GameApply> {
                   ),
                 ),
                 title: Text(
-                  "Ludo King",
+                  widget.title,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              body: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(boxShadow: [
-                              new BoxShadow(
-                                  color: Colors.black12, blurRadius: 10)
-                            ]),
-                            child: Card(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                                margin: EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Stack(children: [
-                                      Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              size2 / 200,
-                                              size1 / 9,
-                                              size2 / 200,
-                                              0),
-                                          child: Container(
-                                            width: size.width / 1.07,
-                                            height: size.height / 20,
-                                            color: Color.fromRGBO(
-                                                179, 230, 255, 1),
-                                          )),
-                                      Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              20, size1 / 17, 0, 0),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star_border,
-                                                color: Colors.yellow[800],
-                                                size: 20,
-                                              ),
-                                              Padding(
-                                                  padding: EdgeInsets.all(2)),
-                                              Text(
-                                                "4.5",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          )),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(20, 10, 0, 0),
-                                        child: Text(
-                                          widget.title,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(
-                                            size2 / 4, size1 / 8, 0, 0),
-                                        child: Text(
-                                          "Total Reward = 0",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              size1 / 60,
-                                              size2 / 14,
-                                              0,
-                                              size2 / 18),
-                                          child: Container(
-                                            decoration: new BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(48.0),
-                                                boxShadow: [
-                                                  new BoxShadow(
-                                                      color: Colors.black,
-                                                      blurRadius: 8)
-                                                ]),
-                                          )),
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(
-                                            size2 / 1.8, size1 / 26, 0, 00),
-                                        child: Container(
-                                          width: size.width / 3.2,
-                                          child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  primary: Color.fromRGBO(
-                                                      77, 195, 255, 1),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50))),
-                                              onPressed: () {
-                                                _launchUrl(widget.url);
-                                              },
-                                              child: Text("Install")),
-                                        ),
-                                      ),
-                                    ])
-                                  ],
-                                )),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 100),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                    width: 200,
-                                    height: 200,
-                                    child: Image.asset("assets/emptyBox.png")),
-                                Text(
-                                  "List Is Empty",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 30),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              body: Container(
+                padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: data.isEmpty ? buildEmptyBanner() : buildList(data),
               ),
             ),
           );
         } else {
           return Scaffold(
             backgroundColor: Colors.white,
-            body: Center(child: new CircularProgressIndicator()),
+            body: Center(
+              child: new CircularProgressIndicator(),
+            ),
           );
         }
         // else {
@@ -454,6 +324,83 @@ class _GameApplyState extends State<GameApply> {
         //   );
         // }
       },
+    );
+  }
+
+  ListView buildList(List<CampaignResponse> data) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => Divider(
+        color: Colors.black,
+      ),
+      itemBuilder: (context, index) {
+        return Card(
+          elevation: 2,
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(
+                color: data[index].approvedConversions == 1
+                    ? Colors.green
+                    : Colors.transparent,
+                width: 2,
+              ),
+            ),
+            tileColor: Colors.white70,
+            title: Text(
+              data[index].goal_name,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              "Task Value ₹${data[index].campaign_revenue}",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: MaterialButton(
+              onPressed: () async {
+                // launch(data[index].url);
+                String url =
+                    "https://cashera.gotrackier.com/click?campaign_id=${data[index].campaign_id}&pub_id=${data[index].publisher_id}";
+                await _launchUrl(url);
+                setState(() {});
+              },
+              child: Text(
+                "Install",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+        );
+      },
+      itemCount: data.length,
+    );
+  }
+
+  Widget buildEmptyBanner() {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(
+              width: 200,
+              height: 200,
+              child: Image.asset("assets/emptyBox.png")),
+          Text(
+            "List Is Empty",
+            style: TextStyle(color: Colors.red, fontSize: 30),
+          ),
+        ],
+      ),
     );
   }
 

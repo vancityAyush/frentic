@@ -25,7 +25,6 @@ class ApiManager extends ChangeNotifier {
   ///////////////////setVerify Otp Api//////////////////////////
 
   Future loginApi(String userName) async {
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({'username': userName});
       print(formData.fields);
@@ -56,7 +55,6 @@ class ApiManager extends ChangeNotifier {
   ///////////////////verify Otp Api//////////////////////////
 
   Future verifyOtpApi(String userName, String otp) async {
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({
         'username': userName,
@@ -90,7 +88,6 @@ class ApiManager extends ChangeNotifier {
 
   Future registerUserApi(String name, String phone, String email,
       String address, String latitude, String longitude) async {
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({
         'name': name,
@@ -112,7 +109,7 @@ class ApiManager extends ChangeNotifier {
       if (response.statusCode == 200) {
         if (response.data['error_code'].toString() == "1") {
           Fluttertoast.showToast(
-              msg: response.data['data'].toString(),
+              msg: response.data['response_string'].toString(),
               toastLength: Toast.LENGTH_LONG);
 
           await SharedPrefManager.savePrefString(
@@ -123,6 +120,11 @@ class ApiManager extends ChangeNotifier {
 
           ///
           navigator.Get.to(Home());
+        } else {
+          Fluttertoast.showToast(
+            msg: response.data['response_string'].toString(),
+            backgroundColor: Colors.red,
+          );
         }
         print(response.data);
       }
@@ -132,8 +134,6 @@ class ApiManager extends ChangeNotifier {
   }
 
   Future editProfileApi(String publisher_key) async {
-    var dio = Dio();
-
     String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
     print("my key ----> " + key);
     try {
@@ -156,11 +156,16 @@ class ApiManager extends ChangeNotifier {
   ResponseProfile? responseProfile;
   Future<ResponseProfile?> fetchProfileApi() async {
     String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({'key': key});
 
       print(formData.fields);
+      FormData fomr = new FormData.fromMap({
+        'category': 'movies',
+        'language': "english",
+        "genre": "all",
+      });
+      final res = dio.post("https://hoblist.com/api/movieList", data: fomr);
 
       final response = await dio.post(
           AppUrlConstant.baseUrl + AppUrlConstant.profileApi,
@@ -181,7 +186,6 @@ class ApiManager extends ChangeNotifier {
   ResponseFetchBrands? responseFetchBrands;
   Future<ResponseFetchBrands?> fetchBrandApi() async {
     String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({'key': key});
 
@@ -210,9 +214,9 @@ class ApiManager extends ChangeNotifier {
     }
     try {
       final data = responseProfile!.data;
-      DateTime date = DateTime(DateTime.now().year, DateTime.now().month, 1);
-      DateTime last =
-          DateTime(DateTime.now().year, DateTime.now().month + 1, 0);
+      DateTime date =
+          DateTime(DateTime.now().year, DateTime.now().month - 1, 1);
+      DateTime last = DateTime(DateTime.now().year, DateTime.now().month, 0);
       final DateFormat formatter = DateFormat('yyyy-MM-dd');
       String startDate = formatter.format(date);
       String endDate = formatter.format(last);
@@ -246,7 +250,6 @@ class ApiManager extends ChangeNotifier {
   ResponseWallet? responseWallet;
   Future<ResponseWallet?> fetchWalletApi() async {
     String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({'key': key});
 
@@ -272,7 +275,6 @@ class ApiManager extends ChangeNotifier {
   ResponseSlider? responseSlider;
   Future<ResponseSlider?> fetchSliderApi() async {
     String key = await SharedPrefManager.getPrefrenceString(AppConstant.KEY);
-    var dio = Dio();
     try {
       FormData formData = new FormData.fromMap({'key': key, 'type': "T"});
 
