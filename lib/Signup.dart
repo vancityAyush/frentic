@@ -76,7 +76,7 @@ class _SignupState extends State<Signup> {
     print("data posted ++++++++++++++++++++++++=======");
     print(key);
     rsDio = await dio.post(
-        'https://api.trackier.com/v2/publishers?apiKey=61eea1a4445e29fb98cefbc3b5461eea1a444613',
+        'https://api.trackier.com/v2/publishers?apiKey=6200eac1aeccb61d3d6700a8a126200eac1aed04',
         data: {
           "name": _name.text,
           "email": _email.text,
